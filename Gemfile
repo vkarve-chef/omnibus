@@ -12,5 +12,4 @@ group :debug do
   gem "pry"
   gem "pry-byebug"
   gem "pry-stack_explorer"
-  gem "rb-readline"
 end
