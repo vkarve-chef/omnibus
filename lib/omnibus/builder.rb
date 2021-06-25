@@ -373,15 +373,15 @@ module Omnibus
     # @param (see #command)
     # @return (see #command)
     #
-    def appbundle(software_name, options = {})
+    def appbundle(software_name, lockdir: nil, gem: nil, without: nil, extra_bin_files: nil , **options)
       build_commands << BuildCommand.new("appbundle `#{software_name}'") do
         bin_dir            = "#{install_dir}/bin"
         appbundler_bin     = embedded_bin("appbundler")
 
-        lockdir = options[:lockdir]
-        gem = options[:gem]
-        without = options[:without]
-        extra_bin_files = options[:extra_bin_files]
+        #lockdir = options[:lockdir]
+        #gem = options[:gem]
+        #without = options[:without]
+        #extra_bin_files = options[:extra_bin_files]
 
         lockdir ||=
           begin
