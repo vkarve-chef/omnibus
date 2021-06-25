@@ -378,10 +378,6 @@ module Omnibus
         bin_dir            = "#{install_dir}/bin"
         appbundler_bin     = embedded_bin("appbundler")
 
-        gem = options[:gem]
-        without = options[:without]
-        extra_bin_files = options[:extra_bin_files]
-
         lockdir ||=
           begin
             app_software = project.softwares.find do |p|
