@@ -76,7 +76,7 @@ module Omnibus
                       # explicit dependencies on windows. Most dependencies are
                       # implicit and hence not detected.
                       log.warn(log_key) { "Skipping dependency health checks on Windows." }
-                      {}
+                      {}, {}
                     else
                       health_check_ldd
                     end
