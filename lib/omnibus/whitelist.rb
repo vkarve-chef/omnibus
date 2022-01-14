@@ -177,6 +177,7 @@ FREEBSD_WHITELIST_LIBS = [
   /libkvm\.so/,
   /libprocstat\.so/,
   /libmd\.so/,
+  /libdl\.so/,
 ].freeze
 
 IGNORED_ENDINGS = %w{
