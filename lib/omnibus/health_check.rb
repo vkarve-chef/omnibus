@@ -76,7 +76,7 @@ module Omnibus
                       # explicit dependencies on windows. Most dependencies are
                       # implicit and hence not detected.
                       log.warn(log_key) { "Skipping dependency health checks on Windows." }
-                      {}, {}
+                      [{}, {}]
                     else
                       health_check_ldd
                     end
@@ -410,9 +410,11 @@ module Omnibus
 
       find_output = shellout!(find_command).stdout.lines
 
-      find_output.reject! { |file| IGNORED_ENDINGS.any? { |ending| file.end_with?(ending) } }
+      find_output.reject! { |file| IGNORED_ENDINGS.any? { |ending| file.end_with?("#{ending}\n") } }
 
       find_output.reject! { |file| IGNORED_SUBSTRINGS.any? { |substr| file.include?(substr) } }
+
+      pp find_output
 
       if find_output.empty?
         # probably the find_command is busted, it should never be empty or why are you using omnibus?
@@ -429,7 +431,7 @@ module Omnibus
       #
 
       # this command will typically fail if the last file isn't a valid lib/binary which happens often
-      ldd_output = shellout(ldd_command, input: find_output.join("\n")).stdout
+      ldd_output = shellout(ldd_command, input: find_output.join).stdout
 
       #
       # do the output process to determine if the files are good or bad

@@ -215,6 +215,7 @@ IGNORED_ENDINGS = %w{
   .lua
   .md
   .mkd
+  .mo
   .npmignore
   .out
   .packlist
@@ -229,19 +230,23 @@ IGNORED_ENDINGS = %w{
   .pyo
   .rake
   .rb
+  .rbs
   .rdoc
   .rhtml
   .ri
+  .rpm
   .rst
   .scss
   .sh
   .sql
   .svg
   .toml
+  .tt
   .ttf
   .txt
   .xml
   .yml
+  COPYING
   Gemfile
   LICENSE
   Makefile
