@@ -311,6 +311,7 @@ module Omnibus
       bad_libs = {}
       good_libs = {}
 
+      pp shellout("find #{project.install_dir}/ -type f | xargs file").stdout
       read_shared_libs("find #{project.install_dir}/ -type f | xargs file | grep \"RISC System\" | awk -F: '{print $1}'", "xargs -n 1 ldd") do |line|
         case line
         when /^(.+) needs:$/
