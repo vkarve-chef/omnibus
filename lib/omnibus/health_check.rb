@@ -66,7 +66,7 @@ module Omnibus
     def run!
       measure("Health check time") do
         log.info(log_key) { "Running health on #{project.name}" }
-        bad_libs, good_libs =  case Ohai["platform"]
+        bad_libs, good_libs = case Ohai["platform"]
                     when "mac_os_x"
                       health_check_otool
                     when "aix"
@@ -79,7 +79,7 @@ module Omnibus
                       [{}, {}]
                     else
                       health_check_ldd
-                    end
+                              end
 
         unresolved = []
         unreliable = []
@@ -167,8 +167,8 @@ module Omnibus
           raise HealthCheckFailed
         end
 
-        unless good_libs.keys.length > 0
-          raise "Internal error: no good libraries or bad libraries were found"
+        if good_libs.keys.length == 0 && !windows?
+          raise "Internal error: no good libraries were found"
         end
 
         conflict_map = {}
@@ -297,7 +297,7 @@ module Omnibus
         end
       end
 
-      return bad_libs, good_libs
+      [bad_libs, good_libs]
     end
 
     #
@@ -326,7 +326,7 @@ module Omnibus
         end
       end
 
-      return bad_libs, good_libs
+      [bad_libs, good_libs]
     end
 
     #
@@ -367,7 +367,7 @@ module Omnibus
         end
       end
 
-      return bad_libs, good_libs
+      [bad_libs, good_libs]
     end
 
     private
@@ -403,7 +403,6 @@ module Omnibus
     #   each line
     #
     def read_shared_libs(find_command, ldd_command, &output_proc)
-
       #
       # construct the list of files to check
       #
@@ -503,7 +502,7 @@ module Omnibus
         log.debug(log_key) { "    -> PASSED: #{name} is either whitelisted or safely provided." }
       end
 
-      return bad_libs, good_libs
+      [bad_libs, good_libs]
     end
   end
 end
